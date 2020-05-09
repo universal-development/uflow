@@ -1,12 +1,5 @@
 subprojects {
 
-    group = 'com.unidev.uflow'
-    version = '0.0.1-SNAPSHOT'
-
-    ext.unidevPlatformVersion = '0.0.1-SNAPSHOT'
-    ext.polydataVersion = '0.0.1-SNAPSHOT'
-
-
     apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -15,10 +8,45 @@ subprojects {
     apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
     apply from: 'http://dev.local/gradle/javadoc.groovy'
 
-	repositories {
-		mavenCentral()
-		maven { url "https://repo.spring.io/milestone" }
-	}
+    group = 'com.unidev.uflow'
+    version = '0.0.1-SNAPSHOT'
+
+    sourceCompatibility = 11
+
+    ext.unidevPlatform = '3.2.9'
+    ext.polydata3 = '3.0.28-SNAPSHOT'
+
+    dependencies {
+
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        implementation "com.unidev.polydata:polydata-flatfile-object-storage:${project.polydata3}"
+
+    }
+
+    configurations {
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+
+    test {
+        useJUnitPlatform()
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
+
 
 
 }

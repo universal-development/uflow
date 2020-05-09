@@ -1,4 +1,6 @@
 package com.unidev.uflow;
 
-public class Processor {
+public interface Processor {
+
+
 }
