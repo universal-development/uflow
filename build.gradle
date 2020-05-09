@@ -1,0 +1,24 @@
+subprojects {
+
+    group = 'com.unidev.uflow'
+    version = '0.0.1-SNAPSHOT'
+
+    ext.unidevPlatformVersion = '0.0.1-SNAPSHOT'
+    ext.polydataVersion = '0.0.1-SNAPSHOT'
+
+
+    apply plugin: 'maven'
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    apply from: 'http://dev.local/gradle/uploadArchivesSftp.groovy'
+    apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
+    apply from: 'http://dev.local/gradle/javadoc.groovy'
+
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/milestone" }
+	}
+
+
+}
