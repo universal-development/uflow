@@ -7,12 +7,15 @@ import lombok.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Item read processing queue
+ */
 @Data
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkItem {
+public class FlowItem {
 
     @Builder.Default
     private BasicPolyList data = BasicPolyList.newList();

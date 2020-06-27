@@ -1,26 +1,45 @@
 package com.unidev.uflow.model;
 
+import com.unidev.platform.Strings;
 import com.unidev.polydata.domain.v3.BasicPoly;
-import com.unidev.uflow.FlowProcessor;
-import com.unidev.uflow.FlowReader;
-import com.unidev.uflow.FlowWriter;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
+import java.util.Optional;
 
+/**
+ * Class which represent flow model.
+ */
 @Data
 @Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class FlowModel {
 
     private BasicPoly config;
-    private BasicPoly reader;
-    private BasicPoly writer;
-    private BasicPoly processors;
+    private List<String> flow;
 
-    private transient FlowReader flowReader;
-    private transient FlowWriter flowWriter;
+    /**
+     * Fetch next queue for processing.
+     */
+    public Optional<String> nextQueue(String currentQueue) {
+        if (Strings.isEmpty(currentQueue)) {
+            return Optional.of(this.flow.get(0));
+        }
 
-    private transient List<FlowProcessor> processorList;
+        for (int i = 0; i < this.flow.size(); i++) {
+            if (currentQueue.equalsIgnoreCase(this.flow.get(i))) {
+                try {
+                    return Optional.of(this.flow.get(i + 1));
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    return Optional.empty();
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
 
 }

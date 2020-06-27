@@ -1,10 +1,16 @@
 package com.unidev.uflow;
 
 import com.unidev.uflow.model.FlowModel;
-import com.unidev.uflow.model.WorkItem;
 
-public interface FlowProcessor extends FlowItem {
+/**
+ * Processor of queue elements.
+ */
+public interface FlowProcessor {
 
-    FlowItem process(FlowModel model, FlowItem item);
+    String id();
+
+    void create();
+
+    void destroy();
 
 }
