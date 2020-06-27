@@ -17,6 +17,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class FlowItem {
 
+    private FlowModel flowModel;
+
     @Builder.Default
     private BasicPolyList data = BasicPolyList.newList();
 
@@ -30,6 +32,10 @@ public class FlowItem {
 
     public List<BasicPoly> fetchData() {
         return data.getList();
+    }
+
+    public static FlowItem flowItem(FlowModel flowModel) {
+        return FlowItem.builder().flowModel(flowModel).build();
     }
 
 }
