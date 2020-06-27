@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Item read processing queue
@@ -16,6 +17,8 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FlowItem {
+
+    private String id;
 
     private FlowModel flowModel;
 
@@ -35,7 +38,10 @@ public class FlowItem {
     }
 
     public static FlowItem flowItem(FlowModel flowModel) {
-        return FlowItem.builder().flowModel(flowModel).build();
+        return FlowItem.builder()
+                .id(UUID.randomUUID().toString())
+                .flowModel(flowModel)
+                .build();
     }
 
 }

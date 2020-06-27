@@ -27,8 +27,7 @@ public class FlowModel {
         if (Strings.isEmpty(currentQueue)) {
             return Optional.of(this.flow.get(0));
         }
-
-        for (int i = 0; i < this.flow.size(); i++) {
+        for (int i = 0; i < this.flow.size() - 1; i++) {
             if (currentQueue.equalsIgnoreCase(this.flow.get(i))) {
                 try {
                     return Optional.of(this.flow.get(i + 1));

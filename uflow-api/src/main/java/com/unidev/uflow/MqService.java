@@ -12,6 +12,8 @@ public interface MqService {
      */
     void registerProcessor(String queue, FlowProcessor flowProcessor);
 
+    void deRegisterProcessor(String queue, FlowProcessor flowProcessor);
+
     /**
      * Put message on queue for processing.
      */
