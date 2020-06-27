@@ -1,25 +1,22 @@
 # uflow
 Micro framework for distribuited messages processing.
 
-
 ## Workflow
 
 * Flow file is prepared with processing steps and used queues
 * Flow file is sent to queue for processing 
 
 ```
- | Initial Queue | -> | Processing Step A -> | Qeueue | ->  Processing Step B ->... 
+ | Initial Queue | -> | Processing Step A -> | Queue | ->  Processing Step B ->... 
 ```
 
-## Flow file sections
+## Flow model sections
 
 `config`
- Section storing generic configurations 
-
+Section storing generic configurations 
 
 `flow`
- List of processors where to send message
-
+Ordered list of queues where to send message
 
 Example (yaml representation):
 
@@ -37,6 +34,8 @@ flow:
   - queue4
 
 ```
+
+
 
 ## Dev workflow
 

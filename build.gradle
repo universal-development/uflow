@@ -13,15 +13,17 @@ subprojects {
 
     sourceCompatibility = 11
 
-    ext.unidevPlatform = '3.2.9'
-    ext.polydata3 = '3.0.28-SNAPSHOT'
+    ext.unidevPlatformVersion = '3.2.9'
+    ext.polydata3Version = '3.0.28-SNAPSHOT'
+    ext.lombockVersion = '1.18.12'
 
     dependencies {
 
-        compileOnly 'org.projectlombok:lombok:1.18.12'
-        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        compileOnly "org.projectlombok:lombok:${project.lombockVersion}"
+        annotationProcessor "org.projectlombok:lombok:${project.lombockVersion}"
 
-        implementation "com.unidev.polydata:polydata-flatfile-object-storage:${project.polydata3}"
+        implementation "com.unidev.platform:unidev-common:${project.unidevPlatformVersion}"
+        implementation "com.unidev.polydata:polydata-flatfile-object-storage:${project.polydata3Version}"
 
     }
 
