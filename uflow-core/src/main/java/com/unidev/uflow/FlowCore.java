@@ -16,7 +16,6 @@ import java.util.Optional;
 @Slf4j
 public class FlowCore {
 
-
     private Map<String, FlowProcessor> processors = new HashMap<>(); // queue : processor
 
     @Getter

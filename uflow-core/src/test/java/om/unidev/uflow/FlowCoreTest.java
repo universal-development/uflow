@@ -34,7 +34,7 @@ public class FlowCoreTest {
     }
 
     @Test
-    public void testFlowCreation() {
+    public void testFlowProcessing() {
         flowCore.addProcessor("test1", new FlowProcessor(testMqService) {
             @Override
             public Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem) {
@@ -49,12 +49,11 @@ public class FlowCoreTest {
             public Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem) {
                 BasicPoly config = flowItem.getFlowModel().getConfig();
                 assertNotNull(config);
-                assertEquals( "123", config.fetch("test1", "NA"));
+                assertEquals("123", config.fetch("test1", "NA"));
                 increment(fromQueue);
                 return Optional.of(flowItem);
             }
         });
-
 
         FlowModel flowModel = FlowModel.builder()
                 .config(BasicPoly.newPoly())
@@ -64,6 +63,65 @@ public class FlowCoreTest {
         flowCore.processFlow(flowModel);
         assertEquals(1, (int) invocations.get("test1"));
         assertEquals(1, (int) invocations.get("test2"));
+
+    }
+
+    @Test
+    public void testMessageDropOnFirstProcessor() {
+        flowCore.addProcessor("test1", new FlowProcessor(testMqService) {
+            @Override
+            public Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem) {
+                increment(fromQueue);
+
+                return Optional.empty();
+            }
+        });
+
+        flowCore.addProcessor("test2", new FlowProcessor(testMqService) {
+            @Override
+            public Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem) {
+                assertTrue(false, "Unreachable processor");
+                return Optional.of(flowItem);
+            }
+        });
+
+        FlowModel flowModel = FlowModel.builder()
+                .config(BasicPoly.newPoly())
+                .flow(Arrays.asList("test1", "test2"))
+                .build();
+
+        flowCore.processFlow(flowModel);
+        assertEquals(1, (int) invocations.get("test1"));
+        assertFalse(invocations.containsKey("test2"));
+
+    }
+
+    @Test
+    public void testMessageDropping() {
+        flowCore.addProcessor("test1", new FlowProcessor(testMqService) {
+            @Override
+            public Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem) {
+                increment(fromQueue);
+                flowItem.setAge(100);
+                return Optional.of(flowItem);
+            }
+        });
+
+        flowCore.addProcessor("test2", new FlowProcessor(testMqService) {
+            @Override
+            public Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem) {
+                increment(fromQueue);
+                return Optional.of(flowItem);
+            }
+        });
+
+        FlowModel flowModel = FlowModel.builder()
+                .config(BasicPoly.newPoly())
+                .flow(Arrays.asList("test1", "test2"))
+                .build();
+        flowCore.processFlow(flowModel);
+        assertEquals(1, (int) invocations.get("test1"));
+        assertFalse(invocations.containsKey("test2"));
 
     }
 

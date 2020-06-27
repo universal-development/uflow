@@ -20,6 +20,9 @@ public class FlowItem {
 
     private String id;
 
+    @Builder.Default
+    private int age = 0;
+
     private FlowModel flowModel;
 
     @Builder.Default
