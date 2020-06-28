@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Slf4j
@@ -28,5 +29,13 @@ public class FlowProcessors {
 
     }
 
+    public Optional<ListeningItem> fetchConfigByQueue(String queue) {
+        for (FlowProcessors.ListeningItem listener : getListeners()) {
+            if (queue.equalsIgnoreCase(listener.getQueue())) {
+                return Optional.of(listener);
+            }
+        }
+        return Optional.empty();
+    }
 
 }

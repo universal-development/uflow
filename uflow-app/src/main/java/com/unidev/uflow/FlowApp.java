@@ -4,6 +4,8 @@ import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unidev.uflow.model.FlowProcessors;
 import com.unidev.uflow.service.SQSMq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +43,13 @@ public class FlowApp {
     }
 
     @Bean
-    public Mq mqService() {
-        return new SQSMq();
+    public Mq mqService(
+            ObjectMapper objectMapper,
+            SQSConnectionFactory sqsConnectionFactory,
+            JmsTemplate jmsTemplate,
+            FlowProcessors flowProcessors
+    ) {
+        return new SQSMq(objectMapper, sqsConnectionFactory, jmsTemplate, flowProcessors);
     }
 
     @Bean
@@ -50,7 +57,6 @@ public class FlowApp {
             @Autowired Mq mqService) {
         return new FlowCore(mqService);
     }
-
 
 
 }
