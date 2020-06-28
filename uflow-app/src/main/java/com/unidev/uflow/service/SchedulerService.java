@@ -2,6 +2,7 @@ package com.unidev.uflow.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.unidev.platform.Randoms;
 import com.unidev.uflow.FlowCore;
 import com.unidev.uflow.model.FlowTrigger;
 import lombok.Getter;
@@ -33,6 +34,9 @@ public class SchedulerService {
     @Autowired
     private ThreadPoolTaskScheduler scheduledExecutorService;
 
+    @Autowired
+    private Randoms randoms;
+
     private ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
     @Value("${scheduler.enabled:true}")
@@ -57,7 +61,7 @@ public class SchedulerService {
             return;
         }
         log.info("Loading schedulers...");
-        for(String dir : configDirs) {
+        for (String dir : configDirs) {
             log.info("Loading {}", dir);
 
             File[] files = new File(dir).listFiles();
@@ -80,14 +84,20 @@ public class SchedulerService {
         int hashCode = fileContent.hashCode();
 
         if (scheduledFutures.containsKey(file.getName()) && scheduledFutures.get(file.getName()).getHashCode() != hashCode) {
+            log.info("Content changed for {}", file.getName());
             cancelJob(file.getName());
+        }
+
+        if (scheduledFutures.containsKey(file.getName()) && scheduledFutures.get(file.getName()).getHashCode() == hashCode) {
+            log.info("No content changed {}", file.getName());
+            return;
         }
 
         try (FileInputStream in = new FileInputStream(file)) {
             FlowTrigger flowTrigger = yamlMapper.readValue(in, FlowTrigger.class);
 
             FlowTriggerRunnable flowTriggerRunnable = new FlowTriggerRunnable(
-                    flowCore, flowTrigger
+                    flowCore, flowTrigger, randoms
             );
 
             ScheduledFuture<?> scheduledFuture = scheduledExecutorService

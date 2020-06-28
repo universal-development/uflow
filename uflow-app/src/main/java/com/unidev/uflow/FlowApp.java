@@ -5,6 +5,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unidev.platform.Randoms;
 import com.unidev.uflow.model.FlowProcessors;
 import com.unidev.uflow.service.SQSMq;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +34,17 @@ public class FlowApp {
     }
 
     @Bean
+    public Randoms randoms() {
+        return new Randoms();
+    }
+
+    @Bean
     public ThreadPoolTaskScheduler scheduledExecutorService() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(100);
         scheduler.setThreadNamePrefix("uflow");
         return scheduler;
     }
-
 
     @Bean
     public SQSConnectionFactory connectionFactory() {
