@@ -8,6 +8,13 @@ spring:
       enabled: false
 
 
+# triggering flows based on time
+
+scheduler:
+  enabled: true
+  configs: uflow-app/samples/triggers
+
+# queue listeners
 processor:
   listeners:
     - processor: "debugProcessor"

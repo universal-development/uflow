@@ -1,0 +1,7 @@
+config:
+  data:
+    "v1" : "c1"
+    "v2" : "c2"
+
+flow:
+  - uflow-debug-processor

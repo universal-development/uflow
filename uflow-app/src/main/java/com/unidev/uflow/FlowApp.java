@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -22,12 +24,22 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("com.unidev.uflow")
 @EnableWebMvc
 @Slf4j
+@EnableScheduling
 public class FlowApp {
 
     public static void main(String[] args) {
 
         SpringApplication.run(FlowApp.class, args);
     }
+
+    @Bean
+    public ThreadPoolTaskScheduler scheduledExecutorService() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(100);
+        scheduler.setThreadNamePrefix("uflow");
+        return scheduler;
+    }
+
 
     @Bean
     public SQSConnectionFactory connectionFactory() {

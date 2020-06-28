@@ -1,0 +1,4 @@
+cron: 0/30 * * * * ?
+triggeredFlows: 1
+flows:
+  - uflow-app/samples/flows/*.yaml
