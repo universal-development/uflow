@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Slf4j
-@Component
+@Component("debugProcessor")
 public class DebugProcessor extends FlowProcessor {
 
     @Getter

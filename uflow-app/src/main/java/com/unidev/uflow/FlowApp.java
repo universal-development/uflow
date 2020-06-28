@@ -4,7 +4,9 @@ import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
+import com.unidev.uflow.model.FlowProcessors;
 import com.unidev.uflow.service.SQSMq;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +22,7 @@ import java.util.List;
 @SpringBootApplication
 @ComponentScan("com.unidev.uflow")
 @EnableWebMvc
+@Slf4j
 public class FlowApp {
 
     public static void main(String[] args) {
@@ -46,10 +49,9 @@ public class FlowApp {
     }
 
     @Bean
-    public FlowCore flowCore(@Autowired Mq mqService, @Autowired List<FlowProcessor> flowProcessorList) {
-        FlowCore flowCore = new FlowCore(mqService);
-
-        return flowCore;
+    public FlowCore flowCore(
+            @Autowired Mq mqService) {
+        return new FlowCore(mqService);
     }
 
 

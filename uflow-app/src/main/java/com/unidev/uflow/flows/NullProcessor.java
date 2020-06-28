@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Slf4j
-@Component
+@Component("nullProcessor")
 public class NullProcessor extends FlowProcessor {
 
     public NullProcessor(Mq mqService) {

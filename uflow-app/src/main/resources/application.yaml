@@ -7,3 +7,9 @@ spring:
     restart:
       enabled: false
 
+
+processor:
+  listeners:
+    - processor: "debugProcessor"
+      queue: "uflow-debug-processor"
+      count: 1
