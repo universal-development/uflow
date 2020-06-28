@@ -16,10 +16,6 @@ ext {
     set('springCloudVersion', "Hoxton.SR6")
 }
 
-jar {
-    enabled = true
-}
-
 dependencies {
     compile project(":uflow-core")
     compile project(":uflow-api")
