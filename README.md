@@ -22,16 +22,12 @@ Example (yaml representation):
 
 ```yaml
 config:
-  key1: value1
-  key1: 
-    - value2
-    - value3
+  data: 
+    "v1" : "c1"
+    "v2" : "c2"
 
 flow:
-  - queue1
-  - queue2
-  - queue3
-  - queue4
+  - uflow-debug-processor
 
 ```
 
@@ -47,3 +43,16 @@ flow:
 http://localhost:8080/
 
 http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
+
+Example flow files
+```yaml
+
+config:
+  data: 
+    "v1" : "c1"
+    "v2" : "c2"
+
+flow:
+  - uflow-debug-processor
+
+```
