@@ -5,7 +5,7 @@ import com.unidev.uflow.model.FlowItem;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestMqService implements MqService {
+public class TestMqService implements Mq {
 
     private Map<String, FlowProcessor> processors = new HashMap<>();
 

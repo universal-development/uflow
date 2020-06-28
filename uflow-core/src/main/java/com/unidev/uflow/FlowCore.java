@@ -16,13 +16,14 @@ import java.util.Optional;
 @Slf4j
 public class FlowCore {
 
+    @Getter
     private Map<String, FlowProcessor> processors = new HashMap<>(); // queue : processor
 
     @Getter
     @Setter
-    private MqService mqService;
+    private Mq mqService;
 
-    public FlowCore(MqService mqService) {
+    public FlowCore(Mq mqService) {
         this.mqService = mqService;
     }
 

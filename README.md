@@ -39,5 +39,11 @@ flow:
 
 ## Dev workflow
 
+```
+ cd uflow-app
+ ../gradlew bootRun
+```
 
+http://localhost:8080/
 
+http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config

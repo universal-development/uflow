@@ -1,0 +1,9 @@
+spring:
+  mvc:
+    favicon:
+      enabled: false
+
+  devtools:
+    restart:
+      enabled: false
+

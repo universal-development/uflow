@@ -5,7 +5,7 @@ import com.unidev.uflow.model.FlowItem;
 /**
  * Interface for message queue interfaces.
  */
-public interface MqService {
+public interface Mq {
 
     /**
      * Register flow processor for queue

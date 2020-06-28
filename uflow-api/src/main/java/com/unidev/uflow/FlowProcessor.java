@@ -1,7 +1,6 @@
 package com.unidev.uflow;
 
 import com.unidev.uflow.model.FlowItem;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +17,9 @@ public abstract class  FlowProcessor {
     @Setter
     private int oldAgeMessages = 100;
 
-    private MqService mqService;
+    private Mq mqService;
 
-    public FlowProcessor(MqService mqService) {
+    public FlowProcessor(Mq mqService) {
         this.mqService = mqService;
     }
 
@@ -49,8 +48,5 @@ public abstract class  FlowProcessor {
     }
 
     public abstract Optional<FlowItem> processItem(String fromQueue, FlowItem flowItem);
-
-
-
 
 }

@@ -1,14 +1,25 @@
 package com.unidev.uflow;
 
+import com.amazon.sqs.javamessaging.SQSConnectionFactory;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.unidev.uflow.service.SQSMq;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.List;
 
 @Configuration
+@SpringBootApplication
+@ComponentScan("com.unidev.uflow")
+@EnableWebMvc
 public class FlowApp {
 
     public static void main(String[] args) {
@@ -17,12 +28,28 @@ public class FlowApp {
     }
 
     @Bean
-    public Docket apiDocs() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+    public SQSConnectionFactory connectionFactory() {
+        return SQSConnectionFactory.builder()
+                .withRegion(Region.getRegion(Regions.US_EAST_1))
+                .withAWSCredentialsProvider(new DefaultAWSCredentialsProviderChain())
                 .build();
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate(SQSConnectionFactory sqsConnectionFactory) {
+        return new JmsTemplate(sqsConnectionFactory);
+    }
+
+    @Bean
+    public Mq mqService() {
+        return new SQSMq();
+    }
+
+    @Bean
+    public FlowCore flowCore(@Autowired Mq mqService, @Autowired List<FlowProcessor> flowProcessorList) {
+        FlowCore flowCore = new FlowCore(mqService);
+
+        return flowCore;
     }
 
 
