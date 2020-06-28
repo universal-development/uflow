@@ -1,7 +1,5 @@
-package om.unidev.uflow;
+package com.unidev.uflow;
 
-import com.unidev.uflow.FlowProcessor;
-import com.unidev.uflow.MqService;
 import com.unidev.uflow.model.FlowItem;
 
 import java.util.HashMap;

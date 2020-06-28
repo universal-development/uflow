@@ -1,8 +1,6 @@
-package om.unidev.uflow;
+package com.unidev.uflow;
 
 import com.unidev.polydata.domain.v3.BasicPoly;
-import com.unidev.uflow.FlowCore;
-import com.unidev.uflow.FlowProcessor;
 import com.unidev.uflow.model.FlowItem;
 import com.unidev.uflow.model.FlowModel;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,12 +23,9 @@ public class FlowCoreTest {
 
     @BeforeEach
     public void init() {
-
         invocations = new ConcurrentHashMap<>();
-
         testMqService = new TestMqService();
-        flowCore = new FlowCore();
-        flowCore.setMqService(testMqService);
+        flowCore = new FlowCore(testMqService);
     }
 
     @Test

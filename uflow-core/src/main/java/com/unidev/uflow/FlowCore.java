@@ -22,6 +22,10 @@ public class FlowCore {
     @Setter
     private MqService mqService;
 
+    public FlowCore(MqService mqService) {
+        this.mqService = mqService;
+    }
+
     public void addProcessor(String queue, FlowProcessor flowProcessor) {
         if (fetchProcessor(queue).isPresent()) {
             log.warn("Queue listener already defined {}", queue);
