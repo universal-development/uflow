@@ -8,6 +8,12 @@ subprojects {
     apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
     apply from: 'http://dev.local/gradle/javadoc.groovy'
 
+    repositories {
+        maven {
+            url  "https://dl.bintray.com/universal-development/unidev-libs"
+        }
+    }
+
     group = 'com.unidev.uflow'
     version = '0.0.1-SNAPSHOT'
 
@@ -31,17 +37,6 @@ subprojects {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
         testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     }
-
-    configurations {
-        developmentOnly
-        runtimeClasspath {
-            extendsFrom developmentOnly
-        }
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
-
 
     test {
         useJUnitPlatform()

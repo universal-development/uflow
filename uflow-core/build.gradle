@@ -1,3 +1,5 @@
 dependencies {
-    compile project(":uflow-api")
+    implementation project(":uflow-api")
+    implementation 'com.unidev.idgenerator:youtube-id-generator:0.0.10-3-gfe7f7ca'
+
 }
