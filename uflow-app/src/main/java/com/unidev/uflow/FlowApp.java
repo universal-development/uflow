@@ -4,7 +4,6 @@ import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
-import com.unidev.uflow.model.FlowProcessors;
 import com.unidev.uflow.service.SQSMq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import java.util.List;
 
 @Configuration
 @SpringBootApplication
