@@ -4,18 +4,18 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
 
-    apply from: 'http://dev.local/gradle/uploadArchivesSftp.groovy'
-    apply from: 'http://dev.local/gradle/defaultRepositories.groovy'
-    apply from: 'http://dev.local/gradle/javadoc.groovy'
+    group = 'com.unidev.uflow'
+    version = '0.0.2-SNAPSHOT'
+
+    apply from: 'http://decafdev.local/gradle/uploadArchives.groovy'
+    apply from: 'http://decafdev.local/gradle/javadoc.groovy'
+    apply from: 'http://decafdev.local/gradle/defaultRepositories.groovy'
 
     repositories {
         maven {
             url  "https://dl.bintray.com/universal-development/unidev-libs"
         }
     }
-
-    group = 'com.unidev.uflow'
-    version = '0.0.1-SNAPSHOT'
 
     sourceCompatibility = 11
 
