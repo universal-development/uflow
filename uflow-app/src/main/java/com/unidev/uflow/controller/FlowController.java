@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,18 @@ public class FlowController {
 
     private final ApplicationContext applicationContext;
 
-    @GetMapping
-    public List<String> listProcessors() {
+    @Autowired
+    private List<FlowProcessor> flowProcessorList;
+
+    @GetMapping("listAvailableProcessors")
+    public List<String> listAvailableProcessors() {
+        List<String> list = new ArrayList<>();
+        flowProcessorList.forEach(item -> list.add(item.getClass().getName()));
+        return list;
+    }
+
+    @GetMapping("listRegisteredProcessors")
+    public List<String> listRegisteredProcessors() {
         List<String> list = new ArrayList<>();
         flowCore.getProcessors().forEach((queue, processor) -> list.add(queue + " : " + processor.getClass().getName()));
         return list;

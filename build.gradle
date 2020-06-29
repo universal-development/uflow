@@ -5,7 +5,7 @@ subprojects {
     apply plugin: 'idea'
 
     group = 'com.unidev.uflow'
-    version = '0.0.5'
+    version = '0.0.6'
 
     apply from: 'http://decafdev.local/gradle/uploadArchives.groovy'
     apply from: 'http://decafdev.local/gradle/javadoc.groovy'
