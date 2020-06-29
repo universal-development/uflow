@@ -83,13 +83,16 @@ public class FlowController {
 
         try (InputStream in = IOUtils.toInputStream(message, "UTF-8")) {
             FlowModel flowModel = mapper.readValue(in, FlowModel.class);
-            flowModel.setFlow(new ArrayList<>());
+            String firstQueue = "";
+            if (flowModel.getFlow() != null && flowModel.getFlow().size() != 0) {
+                firstQueue = flowModel.getFlow().get(0);
+            }
             FlowItem build = FlowItem.builder()
                     .age(1)
                     .id(UUID.randomUUID().toString())
                     .flowModel(flowModel)
                     .build();
-            processor.onMessage("", build);
+            processor.onMessage(firstQueue, build);
 
             result.append("\n").append("Output:").append("\n").append(mapper.writeValueAsString(build));
 
