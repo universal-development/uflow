@@ -19,6 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 public class FlowTriggerRunnable implements Runnable {
 
+    public static final String TRIGGER_FLOWS_MIN_KEY = "trigger_flows_min";
+    public static final String TRIGGER_FLOWS_MAX_KEY = "trigger_flows_max";
+
     private final static ObjectMapper YAML_MAPPER = new ObjectMapper(new YAMLFactory());
 
     private FlowCore flowCore;
@@ -58,16 +61,21 @@ public class FlowTriggerRunnable implements Runnable {
             FlowModel flowModel;
             try {
                 flowModel = YAML_MAPPER.readValue(new File(flowFile), FlowModel.class);
-                flowCore.processFlow(flowModel);
             }catch (Exception e) {
                 log.warn("Failed read flow {}", flowFile, e);
                 continue;
             }
             // put flows on queue
-            try {
-                flowCore.processFlow(flowModel);
-            }catch (Exception e) {
-                log.warn("Failed to process flow {}", flowFile, e);
+            int min = flowModel.getConfig().fetch(TRIGGER_FLOWS_MIN_KEY, 1);
+            int max = flowModel.getConfig().fetch(TRIGGER_FLOWS_MAX_KEY, 1);
+            long count = randoms.randomValue(min, max);
+            for (int flow = 0; flow < count; flow++) {
+                log.info("Triggering {}", flow);
+                try {
+                    flowCore.processFlow(flowModel);
+                } catch (Exception e) {
+                    log.warn("Failed to process flow {}", flowFile, e);
+                }
             }
         }
     }
