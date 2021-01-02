@@ -3,12 +3,11 @@ package com.unidev.uflow.service;
 import com.unidev.uflow.FlowCore;
 import com.unidev.uflow.FlowProcessor;
 import com.unidev.uflow.model.FlowProcessors;
+import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 @Service
 @AllArgsConstructor

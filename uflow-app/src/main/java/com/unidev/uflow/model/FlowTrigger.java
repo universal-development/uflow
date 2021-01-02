@@ -1,10 +1,9 @@
 package com.unidev.uflow.model;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 public class FlowTrigger {

@@ -1,13 +1,12 @@
 package com.unidev.uflow.model;
 
+import java.util.List;
+import java.util.Optional;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
 
 @Component
 @Slf4j

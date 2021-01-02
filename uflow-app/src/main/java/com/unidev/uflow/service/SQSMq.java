@@ -8,17 +8,16 @@ import com.unidev.uflow.FlowProcessor;
 import com.unidev.uflow.Mq;
 import com.unidev.uflow.model.FlowItem;
 import com.unidev.uflow.model.FlowProcessors;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Component;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor

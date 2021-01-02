@@ -5,6 +5,13 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.unidev.platform.Randoms;
 import com.unidev.uflow.FlowCore;
 import com.unidev.uflow.model.FlowTrigger;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledFuture;
+import javax.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +22,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledFuture;
 
 @Service
 @Slf4j
@@ -50,7 +49,7 @@ public class SchedulerService {
     private String[] configDirs;
 
     @Getter
-    private Map<String, FlowTrigger.ScheduledFlowTrigger> scheduledFutures = new ConcurrentHashMap<>();
+    private final Map<String, FlowTrigger.ScheduledFlowTrigger> scheduledFutures = new ConcurrentHashMap<>();
 
 
     @PostConstruct

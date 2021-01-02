@@ -7,9 +7,9 @@ import com.unidev.idgenerator.YoutubeIdGenerator;
  */
 public class Flows {
 
-    public String genId(String key) {
-        YoutubeIdGenerator youtubeIdGenerator = new YoutubeIdGenerator();
-        return youtubeIdGenerator.generate(key);
-    }
+  public String genId(String key) {
+    YoutubeIdGenerator youtubeIdGenerator = new YoutubeIdGenerator();
+    return youtubeIdGenerator.generate(key);
+  }
 
 }
